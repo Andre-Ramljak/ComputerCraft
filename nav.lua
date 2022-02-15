@@ -138,6 +138,11 @@ function nav.setPosition(x, y, z, facing)
     savePos()
 end
 
+-- ===== Dead reckoning =====
+
+function nav.savePos()
+    savePos()
+end
 
 -- ===== Base Movement =====
 function nav.turn(direction) -- (0 <= direciton <= 3)
@@ -207,7 +212,7 @@ end
 -- ===== Compound Movement =====
 
 function nav.go(x, y, z, facing)
-    nav.facing = facing or 0 -- Default parameter
+    facing = facing or 0 -- Default parameter
 
     -- Calculate delta vector
     local dx = x - nav.posX
@@ -229,7 +234,7 @@ function nav.go(x, y, z, facing)
         nav.up(dy)
     end
     -- Perfrom rotation
-    nav.turn(nav.facing)
+    nav.turn(facing)
 end
 
 return nav
