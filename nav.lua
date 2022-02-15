@@ -184,8 +184,8 @@ function nav.forward(steps)
     end
 
     -- Set end position
-    xPos = xPos + xVec
-    zPos = zPos + zVec
+    nav.xPos = nav.xPos + xVec
+    nav.zPos = nav.zPos + zVec
 end
 
 function nav.up(steps)
@@ -200,7 +200,7 @@ function nav.up(steps)
     end
 
     -- Set end position
-    yPos = yPos + steps
+    nav.yPos = nav.yPos + steps
 end
 
 
@@ -210,9 +210,9 @@ function nav.go(x, y, z, facing)
     nav.facing = facing or 0 -- Default parameter
 
     -- Calculate delta vector
-    local dx = x - xPos
-    local dy = y - yPos
-    local dz = z - zPos
+    local dx = x - nav.xPos
+    local dy = y - nav.yPos
+    local dz = z - nav.zPos
 
     -- Perform x delta
     if dx ~= 0 then
