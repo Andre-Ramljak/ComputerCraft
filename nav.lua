@@ -1,5 +1,7 @@
 -- ===INERTIAL NAVIGATION PROGRAM===
 
+local nav = {}
+
 -- ==CONFIGURATION==
 local cachePath = "pos.nav"
 
@@ -124,11 +126,11 @@ end
 
 -- ===== Initialisation =====
 
-function init()
+function nav.init()
     return loadPos()
 end
 
-function setPosition(x, y, z, facing)
+function nav.setPosition(x, y, z, facing)
     posX = x
     posY = y
     posZ = z
@@ -138,7 +140,7 @@ end
 
 
 -- ===== Base Movement =====
-function turn(direction) -- (0 <= direciton <= 3)
+function nav.turn(direction) -- (0 <= direciton <= 3)
     -- Find optimum rotation direction
     local rotDir -- true = clockwise, false = anti-clockwise
     local delta = direction - facing
@@ -164,7 +166,7 @@ function turn(direction) -- (0 <= direciton <= 3)
     facing = normaliseFacing(direction)
 end
 
-function forward(steps)
+function nav.forward(steps)
     -- Calculate delta
     local xVec, zVec = facingToVector(facing)
     xVec = xVec * steps
@@ -186,7 +188,7 @@ function forward(steps)
     zPos = zPos + zVec
 end
 
-function up(steps)
+function nav.up(steps)
     while steps ~= 0 then
         if steps > 0 then -- Up
             tryUp()
@@ -204,7 +206,7 @@ end
 
 -- ===== Compound Movement =====
 
-function go(x, y, z, facing)
+function nav.go(x, y, z, facing)
     facing = facing or 0 -- Default parameter
 
     -- Calculate delta vector
@@ -229,3 +231,7 @@ function go(x, y, z, facing)
     -- Perfrom rotation
     turn(facing)
 end
+
+
+
+return nav
