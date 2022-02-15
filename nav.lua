@@ -153,11 +153,11 @@ function nav.turn(direction) -- (0 <= direciton <= 3)
     end
 
     -- Perform rotations
-    if delta = 1 then
+    if delta == 1 then
         turtle.turnRight()
-    elseif delta = -1 then
+    elseif delta == -1 then
         turtle.turnLeft()
-    elseif delta = 2 then
+    elseif delta == 2 then
         turtle.turnRight()
         turtle.turnRight()
     end
