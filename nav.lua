@@ -59,6 +59,7 @@ local function savePos()
     file.writeLine(nav.posZ)
     file.writeLine(nav.facing)
     file.close()
+    print("NAV: Wrote position: ", nav.posX, ", ", nav.posY, ", ", nav.posZ)
 end
 
 local function loadPos()
@@ -75,6 +76,7 @@ local function loadPos()
         nav.posZ = file.readLine()
         nav.facing = file.readLine()
         file.close()
+        print("NAV: Read position: ", nav.posX, ", ", nav.posY, ", ", nav.posZ)
         return true
     end
 end
