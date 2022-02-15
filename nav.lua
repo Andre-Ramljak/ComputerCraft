@@ -130,7 +130,7 @@ function nav.init()
     return loadPos()
 end
 
-function nav.setPosition(x, y, z, nav.facing)
+function nav.setPosition(x, y, z, facing)
     nav.posX = x
     nav.posY = y
     nav.posZ = z
@@ -206,8 +206,8 @@ end
 
 -- ===== Compound Movement =====
 
-function nav.go(x, y, z, nav.facing)
-    nav.facing = nav.facing or 0 -- Default parameter
+function nav.go(x, y, z, facing)
+    nav.facing = facing or 0 -- Default parameter
 
     -- Calculate delta vector
     local dx = x - xPos
