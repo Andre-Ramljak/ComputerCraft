@@ -173,7 +173,7 @@ function nav.forward(steps)
     zVec = zVec * steps
     
     -- Perform movement
-    while steps ~= 0 then
+    while steps ~= 0 do
         if steps > 0 then -- Forward
             tryForward()
             steps = steps - 1
@@ -189,7 +189,7 @@ function nav.forward(steps)
 end
 
 function nav.up(steps)
-    while steps ~= 0 then
+    while steps ~= 0 do
         if steps > 0 then -- Up
             tryUp()
             steps = steps - 1
