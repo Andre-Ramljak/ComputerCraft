@@ -217,16 +217,16 @@ function nav.go(x, y, z, facing)
     -- Perform x delta
     if dx ~= 0 then
         nav.turn(0)
-        forward(dx)
+        nav.forward(dx)
     end
     -- Perform z difference
     if dz ~= 0 then
         nav.turn(1)
-        forward(dz)
+        nav.forward(dz)
     end
     -- Perform y difference
     if dy ~= 0 then
-        up(dy)
+        nav.up(dy)
     end
     -- Perfrom rotation
     nav.turn(nav.facing)
