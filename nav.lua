@@ -163,7 +163,7 @@ function nav.turn(direction) -- (0 <= direciton <= 3)
     end
 
     -- Set end direction
-    nav.facing = normalisenav.facing(direction)
+    nav.facing = normaliseFacing(direction)
 end
 
 function nav.forward(steps)
