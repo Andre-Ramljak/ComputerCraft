@@ -6,13 +6,13 @@ local nav = {}
 local cachePath = "pos.nav"
 
 -- State Variables
-posX = 1
-posY = 1
-posZ = 1
-facing = 0
-homeX = 1
-homeY = 1
-homeZ = 1
+nav.posX = 1
+nav.posY = 1
+nav.posZ = 1
+nav.facing = 0
+nav.homeX = 1
+nav.homeY = 1
+nav.homeZ = 1
 
 -- ===== Utility =====
 
@@ -25,23 +25,23 @@ function normaliseVector(x, y, z)
 end
 
 function facingToVector(direction)
-    assert(direction >= 0 and direction <= 3, "Direction is out of range")
+    assert(direction >= 0 and direction <= 3, "NAV: Direction is out of range")
     
     if direction == 0 then return 1, 0
     elseif direction == 1 then return 0, 1
     elseif direction == 2 then return -1, 0
     elseif direction == 3 then return 0, -1
     end
-    assert(false, "Invalid direction")
+    assert(false, "NAV: Invalid direction")
 end
 
-function vectorTofacing(x, z)
+function vectorToFacing(x, z)
     if x == 1 then return 0
     elseif x == -1 then return 2
     elseif z == 1 then return 1
     elseif z == -1 then return 3
     end
-    assert(false, "Invalid facing vector")
+    assert(false, "NAV: Invalid facing vector")
 end
 
 function printPosition()
@@ -54,10 +54,10 @@ end
 local function savePos()
     -- Save state variables to file
     local file = fs.open(cachePath, "w")
-    file.writeLine(posX)
-    file.writeLine(posY)
-    file.writeLine(posZ)
-    file.writeLine(facing)
+    file.writeLine(nav.posX)
+    file.writeLine(nav.posY)
+    file.writeLine(nav.posZ)
+    file.writeLine(nav.facing)
     file.close()
 end
 
@@ -70,10 +70,10 @@ local function loadPos()
     else
         -- Read state variables from file
         local file = fs.open(cachePath, "r")
-        posX = file.readLine()
-        posY = file.readLine()
-        posZ = file.readLine()
-        facing = file.readLine()
+        nav.posX = file.readLine()
+        nav.posY = file.readLine()
+        nav.posZ = file.readLine()
+        nav.facing = file.readLine()
         file.close()
         return true
     end
@@ -130,11 +130,11 @@ function nav.init()
     return loadPos()
 end
 
-function nav.setPosition(x, y, z, facing)
-    posX = x
-    posY = y
-    posZ = z
-    facing = 0
+function nav.setPosition(x, y, z, nav.facing)
+    nav.posX = x
+    nav.posY = y
+    nav.posZ = z
+    nav.facing = 0
     savePos()
 end
 
@@ -143,7 +143,7 @@ end
 function nav.turn(direction) -- (0 <= direciton <= 3)
     -- Find optimum rotation direction
     local rotDir -- true = clockwise, false = anti-clockwise
-    local delta = direction - facing
+    local delta = direction - nav.facing
 
     -- Handle rotation encoding disjoint
     if delta == -3 then
@@ -163,12 +163,12 @@ function nav.turn(direction) -- (0 <= direciton <= 3)
     end
 
     -- Set end direction
-    facing = normaliseFacing(direction)
+    nav.facing = normalisenav.facing(direction)
 end
 
 function nav.forward(steps)
     -- Calculate delta
-    local xVec, zVec = facingToVector(facing)
+    local xVec, zVec = facingToVector(nav.facing)
     xVec = xVec * steps
     zVec = zVec * steps
     
@@ -206,8 +206,8 @@ end
 
 -- ===== Compound Movement =====
 
-function nav.go(x, y, z, facing)
-    facing = facing or 0 -- Default parameter
+function nav.go(x, y, z, nav.facing)
+    nav.facing = nav.facing or 0 -- Default parameter
 
     -- Calculate delta vector
     local dx = x - xPos
@@ -229,9 +229,7 @@ function nav.go(x, y, z, facing)
         up(dy)
     end
     -- Perfrom rotation
-    turn(facing)
+    turn(nav.facing)
 end
-
-
 
 return nav
