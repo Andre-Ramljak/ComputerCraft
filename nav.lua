@@ -196,6 +196,9 @@ function nav.forward(steps)
 end
 
 function nav.up(steps)
+    -- Calculate end position
+    local endY = nav.posY + steps
+
     while steps ~= 0 do
         if steps > 0 then -- Up
             tryUp()
@@ -207,7 +210,7 @@ function nav.up(steps)
     end
 
     -- Set end position
-    nav.posY = nav.posY + steps
+    nav.posY = endY
 end
 
 
